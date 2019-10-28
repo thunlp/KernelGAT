@@ -12,14 +12,14 @@ The sentence retrival codes
 ## Train a new sentence selection model
 * Data process
 	* Go to the data folder
-	* Run ''bash process.sh'' to generate pairs for training and development sets
+	* Run ``bash process.sh`` to generate pairs for training and development sets
 * Train the retrieval model
-	* Run ''bash train.sh'' to train the sentence retrieval model
+	* Run ``bash train.sh`` to train the sentence retrieval model
 
 
 ## Test model
-* Run ''bash test.sh'' to get the data for claim verification and top5 evidence will be reserved.
-* The ''process_data.py'' aims to include the golden data for claim verification to avoid the data bias
+* Run ``bash test.sh`` to get the data for claim verification and top5 evidence will be reserved.
+* The ``process_data.py`` aims to include the golden data for claim verification to avoid the data bias
 * Note that if no golden evidence is provided the prediction will be NOT ENOUGH INFO. To avoid this senarios, we add golden evidence for training and development sets
 
 
@@ -28,6 +28,7 @@ The sentence retrival codes
 We have tested the retrieval performance with different model. But we do not write them in my paper because of the page limitation. I hopr these retrieval results can help you.
 
 * Development set
+
 | Model |  Prec@5 | Rec@5 | F1@5 |
 | --------  | -------- | -------- | --------  |
 |BERT + Prediction|27\.66|95\.91|42\.94|
@@ -35,6 +36,7 @@ We have tested the retrieval performance with different model. But we do not wri
 |BERT + PairwiseLoss + WikiTitle|27\.29|94\.37|42\.34|
 
 * Testing set
+
 | Model |  Prec@5 | Rec@5 | F1@5 |
 | --------  | -------- | -------- | --------  |
 |BERT + Prediction|23\.77|85\.07|37\.15|
