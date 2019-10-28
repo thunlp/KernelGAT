@@ -1,4 +1,4 @@
 python train.py --outdir ../checkpoint/retrieval_model \
---train_path ../data/all_train.json \
---valid_path ../data/all_dev.json \
+--train_path ../data/train_pair \
+--valid_path ../data/dev_pair \
 --bert_pretrain ../bert_base

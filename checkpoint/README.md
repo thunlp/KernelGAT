@@ -1,0 +1,9 @@
+# Checkpoint in KGAT experiments
+* The checkpoint used in KGAT. Can be found at [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyILFbON6IUB-iU3nsNLp)
+* There are three folders:
+	* retrieval_model
+		* Evidence retrieval part
+	* pretrain
+		* Pretraine BERT model with claim-evidence pairs, which is same with GEAR
+	* kgat
+		* Fine-tune and aggregate all evidence with KGAT
