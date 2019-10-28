@@ -37,7 +37,7 @@ We compare our model performance with GEAR and keep all same experiment setting.
 | Model |  Label Accuracy | Fever Score |
 | --------  | -------- | -------- |
 |GEAR|74\.84|70\.69|
-|KGAT|71\.51|71\.61|
+|KGAT|75\.51|71\.61|
 
 
 * Testing set
