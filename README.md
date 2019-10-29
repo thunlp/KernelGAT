@@ -17,17 +17,17 @@ For more information about the FEVER 1.0 shared task can be found on this [websi
 
 ## Retrieval Model
 * BERT based ranker.
-* Go to the retrieval_model folder for more information.
+* Go to the ``retrieval_model`` folder for more information.
 
 
 ## Pretrain Model
 * Pre-train BERT with claim-evidence pairs.
-* Go to the pretrain folder for more information.
+* Go to the ``pretrain`` folder for more information.
 
 
 ## KGAT Model
 * Our KGAT model.
-* Go to the kgat folder for more information.
+* Go to the ``kgat`` folder for more information.
 
 
 ## Results
