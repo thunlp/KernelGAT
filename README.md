@@ -1,9 +1,9 @@
 # Kernel Graph Attention Network (KGAT)
-There are source codes for Kernel Graph Attention Network for Fact Verification. [Paper](https://arxiv.org/pdf/1910.09796.pdf)
+There are source codes for [Kernel Graph Attention Network for Fact Verification](https://arxiv.org/pdf/1910.09796.pdf).
 
 ![model](https://github.com/thunlp/KernelGAT/blob/master/model.png)
 
-For more information about the FEVER 1.0 shared task can be found on this [website](http://fever.ai)
+For more information about the FEVER 1.0 shared task can be found on this [website](http://fever.ai).
 
 
 ## Requirement
@@ -12,26 +12,26 @@ For more information about the FEVER 1.0 shared task can be found on this [websi
 
 
 ## Data and Checkpoint
-* Can be found at [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyILFbON6IUB-iU3nsNLp)
+* Can be found at [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyILFbON6IUB-iU3nsNLp).
 
 
 ## Retrieval Model
-* BERT based ranker
-* Go to the retrieval_model folder for more information
+* BERT based ranker.
+* Go to the retrieval_model folder for more information.
 
 
 ## Pretrain Model
-* Pre-train BERT with claim-evidence pairs
-* Go to the pretrain folder for more information
+* Pre-train BERT with claim-evidence pairs.
+* Go to the pretrain folder for more information.
 
 
 ## KGAT Model
-* Our KGAT model
-* Go to the kgat folder for more information
+* Our KGAT model.
+* Go to the kgat folder for more information.
 
 
 ## Results
-The results are all on [Codalab leaderboard](https://competitions.codalab.org/competitions/18814#results). (The Rank@1 and Rank@2 use XLNet and BERT(large))
+The results are all on [Codalab leaderboard](https://competitions.codalab.org/competitions/18814#results). (The Rank@1 and Rank@2 use XLNet and BERT(large)).
 
 
 | Rank | User | Pre-train Model| Label Accuracy| FEVER Score |
@@ -53,4 +53,7 @@ The results are all on [Codalab leaderboard](https://competitions.codalab.org/co
 ```
 
 ## Contact
-If you have questions, suggestions and bug reports, please email liuzhenghao0819@gmail.com.
+If you have questions, suggestions and bug reports, please email:
+```
+liuzhenghao0819@gmail.com
+```
