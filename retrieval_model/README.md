@@ -1,33 +1,33 @@
 # Sentence Retrieval with BERT
 
-The sentence retrival codes
+The sentence retrival codes.
 
 ## Introduction
-* The fact verification contains three steps: Document Retrieval, Sentence Retrival and Fact Verification
-* We utilize BERT based for the sentence retrival part
-* Our paper also compare with ESIM based sentence retrieval, which is same as GEAR. The data can also be found in data folder
-* We use pairwise loss that can achieve best performance
+* The fact verification shared task contains three steps: Document Retrieval, Sentence Retrival and Fact Verification.
+* We utilize BERT based model for the sentence retrival part.
+* Our paper main compare KGAT with ESIM based sentence retrieval, which is same as GEAR because the BERT model overfit on the development set. The data can also be found in data folder.
+* We use pairwise loss for sentence retrieval, which can achieve best performance.
 
 
 ## Train a new sentence selection model
-* Data process
-	* Go to the data folder
-	* Run ``bash process.sh`` to generate pairs for training and development sets
-* Train the retrieval model
-	* Run ``bash train.sh`` to train the sentence retrieval model
+* Data process:
+	* Go to the data folder.
+	* Run ``bash process.sh`` to generate pairs for training and development sets.
+* Train the retrieval model:
+	* Run ``bash train.sh`` to train the BERT based sentence retrieval model.
 
 
 ## Test model
 * Run ``bash test.sh`` to get the data for claim verification and top5 evidence will be reserved.
-* The ``process_data.py`` aims to include the golden data for claim verification to avoid the data bias
-* Note that if no golden evidence is provided the prediction will be NOT ENOUGH INFO. To avoid this senarios, we add golden evidence for training and development sets
+* The ``process_data.py`` aims to include the golden data for claim verification to avoid the data bias.
+* Note that if no golden evidence is provided the prediction should be NOT ENOUGH INFO (Different from the golden label). To avoid this senario, we add golden evidence for training and development sets to avoid the label bias.
 
 
 ## Retrieval Perfomance
 
-We have tested the retrieval performance with different model. But we do not write them in my paper because of the page limitation. I hopr these retrieval results can help you.
+We have tested the performance of BERT based retrieval model with different setting. We do not write them into the paper because of the page limitation. We hope these results can help you for further studies. The codes of ``BERT + Prediction`` are same with the ``pretrain``.
 
-* Development set
+* Development set.
 
 | Model |  Prec@5 | Rec@5 | F1@5 |
 | --------  | -------- | -------- | --------  |
@@ -35,7 +35,7 @@ We have tested the retrieval performance with different model. But we do not wri
 |BERT + PairwiseLoss|27\.21|93\.89|42\.14|
 |BERT + PairwiseLoss + WikiTitle|27\.29|94\.37|42\.34|
 
-* Testing set
+* Testing set.
 
 | Model |  Prec@5 | Rec@5 | F1@5 |
 | --------  | -------- | -------- | --------  |
