@@ -3,7 +3,7 @@ There are source codes for Kernel Graph Attention Network for Fact Verification.
 
 ![model](https://github.com/thunlp/KernelGAT/blob/master/model.png)
 
-For more information about the FEVER 1.0 shared task can be found ont this [website](http://fever.ai)
+For more information about the FEVER 1.0 shared task can be found on this [website](http://fever.ai)
 
 
 ## Requirement
