@@ -43,6 +43,7 @@ def tok2int_sent(sentence, tokenizer, max_seq_length):
     if tokens_b and tokens_t:
         tokens = tokens + tokens_t + ["[SEP]"] + tokens_b + ["[SEP]"]
         segment_ids += [1] * (len(tokens_b) + len(tokens_t) + 2)
+    #print (tokens)
     input_ids = tokenizer.convert_tokens_to_ids(tokens)
     input_mask = [1] * len(input_ids)
     padding = [0] * (max_seq_length - len(input_ids))
@@ -130,10 +131,10 @@ class DataLoader(object):
         np.random.shuffle(self.examples)
 
     def process_sent(self, sentence):
-        sentence = re.sub(" \-LSB\-.*?\-RSB\-", "", sentence)
-        sentence = re.sub("\-LRB\- \-RRB\- ", "", sentence)
-        sentence = re.sub(" -LRB-", " ( ", sentence)
-        sentence = re.sub("-RRB-", " )", sentence)
+        sentence = re.sub(" LSB.*?RSB", "", sentence)
+        sentence = re.sub("LRB RRB ", "", sentence)
+        sentence = re.sub("LRB", " ( ", sentence)
+        sentence = re.sub("RRB", " )", sentence)
         sentence = re.sub("--", "-", sentence)
         sentence = re.sub("``", '"', sentence)
         sentence = re.sub("''", '"', sentence)
@@ -142,9 +143,9 @@ class DataLoader(object):
 
     def process_wiki_title(self, title):
         title = re.sub("_", " ", title)
-        title = re.sub(" -LRB-", " ( ", title)
-        title = re.sub("-RRB-", " )", title)
-        title = re.sub("-COLON-", ":", title)
+        title = re.sub("LRB", " ( ", title)
+        title = re.sub("RRB", " )", title)
+        title = re.sub("COLON", ":", title)
         return title
 
 
@@ -269,6 +270,7 @@ class DataLoaderTest(object):
 
         if self.step < self.total_step:
             inputs = self.inputs[self.step * self.batch_size : (self.step+1)*self.batch_size]
+
             ids = self.ids[self.step * self.batch_size : (self.step+1)*self.batch_size]
             inp_padding_inputs, msk_padding_inputs, seg_padding_inputs = [], [], []
             for step in range(len(inputs)):

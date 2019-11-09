@@ -49,13 +49,6 @@ def kernel_sigmas(n_kernels):
 class inference_model(nn.Module):
     def __init__(self, bert_model, args):
         super(inference_model, self).__init__()
-        '''train_params = ['bert.encoder.layer.11', 'bert.encoder.layer.10', 'bert.encoder.layer.9']
-        param_optimizer = list(bert_model.named_parameters())
-        for n, p in param_optimizer:
-            if any(nd in n for nd in train_params):
-                p.requires_grad=True
-            else:
-                p.requires_grad=False'''
         self.bert_hidden_dim = args.bert_hidden_dim
         self.dropout = nn.Dropout(args.dropout)
         self.max_len = args.max_len
@@ -64,7 +57,6 @@ class inference_model(nn.Module):
         self.evi_num = args.evi_num
         self.nlayer = args.layer
         self.kernel = args.kernel
-        #self.proj_inference = nn.Linear(self.bert_hidden_dim * 2, self.num_labels)
         self.proj_inference_de = nn.Linear(self.bert_hidden_dim * 2, self.num_labels)
         self.proj_att = nn.Linear(self.kernel, 1)
         self.proj_input_de = nn.Linear(self.bert_hidden_dim, self.bert_hidden_dim)
@@ -73,10 +65,9 @@ class inference_model(nn.Module):
             ReLU(True),
             Linear(128, 1)
         )
-        self.proj_select = nn.Linear(self.kernel + self.bert_hidden_dim, 1)
+        self.proj_select = nn.Linear(self.kernel, 1)
         self.mu = Variable(torch.FloatTensor(kernal_mus(self.kernel)), requires_grad = False).view(1, 1, 1, 21).cuda()
         self.sigma = Variable(torch.FloatTensor(kernel_sigmas(self.kernel)), requires_grad = False).view(1, 1, 1, 21).cuda()
-        #print (kernal_mus(self.kernel))
 
 
     def self_attention(self, inputs, inputs_hiddens, mask, mask_evidence, index):
@@ -96,7 +87,9 @@ class inference_model(nn.Module):
         att_score = self.get_intersect_matrix_att(hiddens_norm.view(-1, self.max_len, self.bert_hidden_dim), own_norm.view(-1, self.max_len, self.bert_hidden_dim),
                                                   mask_evidence.view(-1, self.max_len), own_mask.view(-1, self.max_len))
         att_score = att_score.view(-1, self.evi_num, self.max_len, 1)
-
+        #if index == 1:
+        #    for i in range(self.evi_num):
+        #print (att_score.view(-1, self.evi_num, self.max_len)[0, 1, :])
         denoise_inputs = torch.sum(att_score * inputs_hiddens, 2)
         weight_inp = torch.cat([own_input, inputs], -1)
         weight_inp = self.proj_gat(weight_inp)
@@ -106,8 +99,6 @@ class inference_model(nn.Module):
         weight_de = self.proj_gat(weight_de)
         weight_de = F.softmax(weight_de, dim=1)
         outputs_de = (denoise_inputs * weight_de).sum(dim=1)
-        #print (weight_de)
-        #print (weight_inp)
         return outputs, outputs_de
 
     def get_intersect_matrix(self, q_embed, d_embed, attn_q, attn_d):
@@ -118,7 +109,7 @@ class inference_model(nn.Module):
         pooling_sum = torch.sum(pooling_value, 2)
         log_pooling_sum = torch.log(torch.clamp(pooling_sum, min=1e-10)) * attn_q
         log_pooling_sum = torch.sum(log_pooling_sum, 1) / (torch.sum(attn_q, 1) + 1e-10)
-        #log_pooling_sum = self.proj_select(log_pooling_sum).view([-1, 1])
+        log_pooling_sum = self.proj_select(log_pooling_sum).view([-1, 1])
         return log_pooling_sum
 
     def get_intersect_matrix_att(self, q_embed, d_embed, attn_q, attn_d):
@@ -131,8 +122,6 @@ class inference_model(nn.Module):
         log_pooling_sum = self.proj_att(log_pooling_sum).squeeze(-1)
         log_pooling_sum = log_pooling_sum.masked_fill_(1 - attn_q.byte(), -1e4)
         log_pooling_sum = F.softmax(log_pooling_sum, dim=1)
-        #for i in range(log_pooling_sum.size()[0]):
-        #print (log_pooling_sum.view(-1, self.evi_num, self.max_len)[0, :, :])
         return log_pooling_sum
 
     def forward(self, inputs):
@@ -142,31 +131,24 @@ class inference_model(nn.Module):
         mask_text[:, 0] = 0.0
         mask_claim = (1 - seg_tensor.float()) * mask_text
         mask_evidence = seg_tensor.float() * mask_text
-        inputs = inputs.view([-1, self.evi_num, self.bert_hidden_dim])
         inputs_hiddens = inputs_hiddens.view(-1, self.max_len, self.bert_hidden_dim)
         inputs_hiddens_norm = F.normalize(inputs_hiddens, p=2, dim=2)
         log_pooling_sum = self.get_intersect_matrix(inputs_hiddens_norm, inputs_hiddens_norm, mask_claim, mask_evidence)
-        log_pooling_sum = log_pooling_sum.view([-1, self.evi_num, self.kernel])
-        log_pooling_sum = torch.cat([log_pooling_sum, inputs], -1)
-        log_pooling_sum = self.proj_select(log_pooling_sum)
+        log_pooling_sum = log_pooling_sum.view([-1, self.evi_num, 1])
         select_prob = F.softmax(log_pooling_sum, dim=1)
-
+        inputs = inputs.view([-1, self.evi_num, self.bert_hidden_dim])
         inputs_hiddens = inputs_hiddens.view([-1, self.evi_num, self.max_len, self.bert_hidden_dim])
-        inputs_att = []
         inputs_att_de = []
         for i in range(self.evi_num):
-            outputs, outputs_de = self.self_attention(inputs, inputs_hiddens, mask_text, mask_evidence, i)
-            inputs_att.append(outputs)
+            outputs, outputs_de = self.self_attention(inputs, inputs_hiddens, mask_text, mask_text, i)
             inputs_att_de.append(outputs_de)
-        inputs_att = torch.cat(inputs_att, dim=1)
         inputs_att = inputs.view([-1, self.evi_num, self.bert_hidden_dim])
         inputs_att_de = torch.cat(inputs_att_de, dim=1)
         inputs_att_de = inputs_att_de.view([-1, self.evi_num, self.bert_hidden_dim])
-        inputs_att_de = torch.tanh(self.proj_input_de(inputs_att)) * inputs_att_de
         inputs_att = torch.cat([inputs_att, inputs_att_de], -1)
         inference_feature = self.proj_inference_de(inputs_att)
         class_prob = F.softmax(inference_feature, dim=2)
-        prob = torch.sum(class_prob, 1) / self.evi_num
+        prob = torch.sum(select_prob * class_prob, 1)
         prob = torch.log(prob)
         return prob
 

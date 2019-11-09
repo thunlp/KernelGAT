@@ -71,8 +71,8 @@ def train_model(model, args, trainset_reader, validset_reader):
             prob = model(inputs)
             loss = F.nll_loss(prob, lab_tensor)
             running_loss += loss.item()
-            if args.gradient_accumulation_steps > 1:
-                loss = loss / args.gradient_accumulation_steps
+            #if args.gradient_accumulation_steps > 1:
+            #    loss = loss / args.gradient_accumulation_steps
             loss.backward()
             global_step += 1
             if global_step % args.gradient_accumulation_steps == 0:
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     parser.add_argument('--bert_pretrain', required=True)
     parser.add_argument('--postpretrain')
     parser.add_argument("--learning_rate", default=5e-5, type=float, help="The initial learning rate for Adam.")
-    parser.add_argument("--num_train_epochs", default=2.0, type=float,
+    parser.add_argument("--num_train_epochs", default=3.0, type=float,
                         help="Total number of training epochs to perform.")
     parser.add_argument("--warmup_proportion", default=0.1, type=float,
                         help="Proportion of training to perform linear learning rate warmup for. E.g., 0.1 = 10% "
@@ -161,6 +161,6 @@ if __name__ == "__main__":
     # 2. overwrite entries in the existing state dict
     model_dict.update(pretrained_dict)
     # 3. load the new state dict
-    model.load_state_dict(model_dict)
+    #model.load_state_dict(model_dict)
     model = model.cuda()
     train_model(model, args, trainset_reader, validset_reader)
