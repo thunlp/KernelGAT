@@ -65,24 +65,3 @@ class inference_model(nn.Module):
         score = self.proj_match(inputs).squeeze(-1)
         score = torch.tanh(score)
         return score
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
