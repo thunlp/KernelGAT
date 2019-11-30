@@ -38,15 +38,13 @@ The results are all on [Codalab leaderboard](https://competitions.codalab.org/co
 | --------  | -------- | -------- | --------  | --------  |
 |1|[DREAM](https://arxiv.org/pdf/1909.03745.pdf)|XLNet|0\.7685|0\.7060|
 |2|abcd_zh (Ours)|RoBERTa \(Base\)|0\.7407|0\.7038|
-|3|abcd_zh (Ours)|BERT \(Large\)|0\.7361|0\.7024|
-|4|[a.soleimani.b](https://arxiv.org/pdf/1910.02655.pdf)|BERT \(Large\)|0\.7186|0\.6966 |
-|5|abcd_zh (Ours)|BERT \(Base\)|0\.7281|0\.6940|
+|3|[a.soleimani.b](https://arxiv.org/pdf/1910.02655.pdf)|BERT \(Large\)|0\.7186|0\.6966 |
 |9|[GEAR_single](https://arxiv.org/pdf/1908.01843.pdf)|BERT \(Base\)|0\.7160|0\.6710|
 
 KGAT performance with different pre-trained language model.
 
 | Pre-train Model| Label Accuracy| FEVER Score |
-| --------  | -------- | -------- | --------  | --------  |
+| --------  | -------- | -------- |
 |RoBERTa \(Base\)|0\.7407|0\.7038|
 |BERT \(Large\)|0\.7361|0\.7024|
 |BERT \(Base\)|0\.7281|0\.6940|
