@@ -103,7 +103,7 @@ class DataLoader(object):
 
         self.total_num = len(examples)
         if self.test:
-            self.total_step = np.ceil(self.total_num * 1.0 / batch_size)
+            self.total_step = self.total_num / batch_size #np.ceil(self.total_num * 1.0 / batch_size)
         else:
             self.total_step = self.total_num / batch_size
             self.shuffle()
@@ -172,11 +172,11 @@ class DataLoader(object):
                 seg_padding_inputs += seg
 
             inp_tensor_input = Variable(
-                torch.LongTensor(inp_padding_inputs))
+                torch.LongTensor(inp_padding_inputs)).view(-1, self.evi_num, self.max_len)
             msk_tensor_input = Variable(
-                torch.LongTensor(msk_padding_inputs))
+                torch.LongTensor(msk_padding_inputs)).view(-1, self.evi_num, self.max_len)
             seg_tensor_input = Variable(
-                torch.LongTensor(seg_padding_inputs))
+                torch.LongTensor(seg_padding_inputs)).view(-1, self.evi_num, self.max_len)
             lab_tensor = Variable(
                 torch.LongTensor(labels))
             if self.cuda:
