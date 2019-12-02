@@ -2,6 +2,7 @@ import random, os
 import argparse
 import numpy as np
 import torch
+import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from tqdm import tqdm
@@ -43,7 +44,7 @@ def eval_model(model, validset_reader):
 
 
 
-def train_model(model, args, trainset_reader, validset_reader):
+def train_model(model, ori_model, args, trainset_reader, validset_reader):
     save_path = args.outdir + '/model'
     best_accuracy = 0.0
     running_loss = 0.0
@@ -81,15 +82,16 @@ def train_model(model, args, trainset_reader, validset_reader):
                 logger.info('Epoch: {0}, Step: {1}, Loss: {2}'.format(epoch, global_step, (running_loss / global_step)))
             if global_step % (args.eval_step * args.gradient_accumulation_steps) == 0:
                 logger.info('Start eval!')
-                dev_accuracy = eval_model(model, validset_reader)
-                logger.info('Dev total acc: {0}'.format(dev_accuracy))
-                if dev_accuracy > best_accuracy:
-                    best_accuracy = dev_accuracy
+                with torch.no_grad():
+                    dev_accuracy = eval_model(model, validset_reader)
+                    logger.info('Dev total acc: {0}'.format(dev_accuracy))
+                    if dev_accuracy > best_accuracy:
+                        best_accuracy = dev_accuracy
 
-                    torch.save({'epoch': epoch,
-                                'model': model.state_dict(),
-                                'best_accuracy': best_accuracy}, save_path + ".best.pt")
-                    logger.info("Saved best epoch {0}, best accuracy {1}".format(epoch, best_accuracy))
+                        torch.save({'epoch': epoch,
+                                    'model': ori_model.state_dict(),
+                                    'best_accuracy': best_accuracy}, save_path + ".best.pt")
+                        logger.info("Saved best epoch {0}, best accuracy {1}".format(epoch, best_accuracy))
 
 
 
@@ -101,9 +103,9 @@ if __name__ == "__main__":
     parser.add_argument('--weight_decay', type=float, default=5e-4, help='Weight decay (L2 loss on parameters).')
     parser.add_argument('--train_path', help='train path')
     parser.add_argument('--valid_path', help='valid path')
-    parser.add_argument("--train_batch_size", default=4, type=int, help="Total batch size for training.")
+    parser.add_argument("--train_batch_size", default=8, type=int, help="Total batch size for training.")
     parser.add_argument("--bert_hidden_dim", default=768, type=int, help="Total batch size for training.")
-    parser.add_argument("--valid_batch_size", default=2, type=int, help="Total batch size for predictions.")
+    parser.add_argument("--valid_batch_size", default=8, type=int, help="Total batch size for predictions.")
     parser.add_argument('--outdir', required=True, help='path to output directory')
     parser.add_argument("--pool", type=str, default="att", help='Aggregating method: top, max, mean, concat, att, sum')
     parser.add_argument("--layer", type=int, default=1, help='Graph Layer.')
@@ -114,7 +116,7 @@ if __name__ == "__main__":
     parser.add_argument("--max_len", default=130, type=int,
                         help="The maximum total input sequence length after WordPiece tokenization. Sequences "
                              "longer than this will be truncated, and sequences shorter than this will be padded.")
-    parser.add_argument("--eval_step", default=1000, type=int,
+    parser.add_argument("--eval_step", default=500, type=int,
                         help="The maximum total input sequence length after WordPiece tokenization. Sequences "
                              "longer than this will be truncated, and sequences shorter than this will be padded.")
     parser.add_argument('--bert_pretrain', required=True)
@@ -151,16 +153,7 @@ if __name__ == "__main__":
 
     logger.info('initializing estimator model')
     bert_model = BertForSequenceEncoder.from_pretrained(args.bert_pretrain)
-    model = inference_model(bert_model, args)
+    ori_model = inference_model(bert_model, args)
+    model = nn.DataParallel(ori_model)
     model = model.cuda()
-    pretrained_dict = torch.load(args.postpretrain)['model']
-    model_dict = model.state_dict()
-    # 1. filter out unnecessary keys
-    pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-    #logger.info(len(pretrained_dict))
-    # 2. overwrite entries in the existing state dict
-    model_dict.update(pretrained_dict)
-    # 3. load the new state dict
-    #model.load_state_dict(model_dict)
-    model = model.cuda()
-    train_model(model, args, trainset_reader, validset_reader)
+    train_model(model, ori_model, args, trainset_reader, validset_reader)

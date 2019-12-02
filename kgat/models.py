@@ -104,7 +104,7 @@ class inference_model(nn.Module):
         attn_q = attn_q.view(attn_q.size()[0], attn_q.size()[1], 1)
         attn_d = attn_d.view(attn_d.size()[0], 1, attn_d.size()[1], 1)
         sim = torch.bmm(q_embed, torch.transpose(d_embed, 1, 2)).view(q_embed.size()[0], q_embed.size()[1], d_embed.size()[1], 1)
-        pooling_value = torch.exp((- ((sim - self.mu) ** 2) / (self.sigma ** 2) / 2)) * attn_d
+        pooling_value = torch.exp((- ((sim - self.mu.cuda()) ** 2) / (self.sigma.cuda() ** 2) / 2)) * attn_d
         pooling_sum = torch.sum(pooling_value, 2)
         log_pooling_sum = torch.log(torch.clamp(pooling_sum, min=1e-10)) * attn_q
         log_pooling_sum = torch.sum(log_pooling_sum, 1) / (torch.sum(attn_q, 1) + 1e-10)
@@ -115,7 +115,7 @@ class inference_model(nn.Module):
         attn_q = attn_q.view(attn_q.size()[0], attn_q.size()[1])
         attn_d = attn_d.view(attn_d.size()[0], 1, attn_d.size()[1], 1)
         sim = torch.bmm(q_embed, torch.transpose(d_embed, 1, 2)).view(q_embed.size()[0], q_embed.size()[1], d_embed.size()[1], 1)
-        pooling_value = torch.exp((- ((sim - self.mu) ** 2) / (self.sigma ** 2) / 2)) * attn_d
+        pooling_value = torch.exp((- ((sim - self.mu.cuda()) ** 2) / (self.sigma.cuda() ** 2) / 2)) * attn_d
         log_pooling_sum = torch.sum(pooling_value, 2)
         log_pooling_sum = torch.log(torch.clamp(log_pooling_sum, min=1e-10))
         log_pooling_sum = self.proj_att(log_pooling_sum).squeeze(-1)
@@ -125,6 +125,9 @@ class inference_model(nn.Module):
 
     def forward(self, inputs):
         inp_tensor, msk_tensor, seg_tensor = inputs
+        msk_tensor = msk_tensor.view(-1, self.max_len)
+        inp_tensor = inp_tensor.view(-1, self.max_len)
+        seg_tensor = seg_tensor.view(-1, self.max_len)
         inputs_hiddens, inputs = self.pred_model(inp_tensor, msk_tensor, seg_tensor)
         mask_text = msk_tensor.view(-1, self.max_len).float()
         mask_text[:, 0] = 0.0
