@@ -33,7 +33,7 @@ For more information about the FEVER 1.0 shared task can be found on this [websi
 
 
 ## Results
-The results are all on [Codalab leaderboard](https://competitions.codalab.org/competitions/18814#results). (The Rank@1 and Rank@2 use XLNet and BERT(large)).
+The results are all on [Codalab leaderboard](https://competitions.codalab.org/competitions/18814#results).
 
 
 | User | Pre-train Model| Label Accuracy| FEVER Score |
