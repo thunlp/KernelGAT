@@ -7,7 +7,6 @@ from bert_model import BertForSequenceEncoder
 
 from torch.nn import BatchNorm1d, Linear, ReLU
 from bert_model import BertForSequenceEncoder
-import dgl.function as fn
 from torch.autograd import Variable
 import numpy as np
 
