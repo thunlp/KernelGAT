@@ -150,8 +150,8 @@ class DataLoader(object):
             pos_inputs = list()
             neg_inputs = list()
             for example in examples:
-                pos_inputs.append([example[0]] + example[1])
-                neg_inputs.append([example[0]] + example[2])
+                pos_inputs.append([example[0], example[1]])
+                neg_inputs.append([example[0], example[2]])
             inp_pos, msk_pos, seg_pos = tok2int_list(pos_inputs, self.tokenizer, self.max_len)
             inp_neg, msk_neg, seg_neg = tok2int_list(neg_inputs, self.tokenizer, self.max_len)
 

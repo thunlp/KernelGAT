@@ -35,7 +35,7 @@ if __name__ == "__main__":
         for data in data_dict.values():
             evidence_tmp = data["evidence"]
             evidence_tmp = sorted(evidence_tmp, key=lambda x:x[3], reverse=True)
-            data["evidence"] = evidence_tmp
+            data["evidence"] = evidence_tmp[:5]
             out.write(json.dumps(data) + "\n")
 
 

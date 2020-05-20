@@ -1,5 +1,5 @@
 # Kernel Graph Attention Network (KGAT)
-There are source codes for [Kernel Graph Attention Network for Fact Verification](https://arxiv.org/pdf/1910.09796.pdf).
+There are source codes for [Fine-grained Fact Verification with Kernel Graph Attention Network](https://arxiv.org/abs/1910.09796).
 
 ![model](https://github.com/thunlp/KernelGAT/blob/master/model.png)
 
@@ -9,6 +9,8 @@ For more information about the FEVER 1.0 shared task can be found on this [websi
 ## Requirement
 * Python 3.X
 * fever_score
+* Pytorch
+* pytorch_pretrained_bert
 
 
 ## Data and Checkpoint
@@ -34,36 +36,37 @@ For more information about the FEVER 1.0 shared task can be found on this [websi
 The results are all on [Codalab leaderboard](https://competitions.codalab.org/competitions/18814#results). (The Rank@1 and Rank@2 use XLNet and BERT(large)).
 
 
-| Rank | User | Pre-train Model| Label Accuracy| FEVER Score |
-| --------  | -------- | -------- | --------  | --------  |
-|1|[DREAM](https://arxiv.org/pdf/1909.03745.pdf)|XLNet|0\.7685|0\.7060|
-|2|abcd_zh (Ours)|RoBERTa \(Base\)|0\.7407|0\.7038|
-|3|[a.soleimani.b](https://arxiv.org/pdf/1910.02655.pdf)|BERT \(Large\)|0\.7186|0\.6966 |
-|9|[GEAR_single](https://arxiv.org/pdf/1908.01843.pdf)|BERT \(Base\)|0\.7160|0\.6710|
+| User | Pre-train Model| Label Accuracy| FEVER Score |
+| -------- | -------- | --------  | --------  |
+[GEAR_single](https://arxiv.org/pdf/1908.01843.pdf)|BERT \(Base\)|0\.7160|0\.6710|
+|[a.soleimani.b](https://arxiv.org/pdf/1910.02655.pdf)|BERT \(Large\)|0\.7186|0\.6966 |
+|KGAT |RoBERTa \(Large\)|0\.7407|0\.7038|
+
 
 KGAT performance with different pre-trained language model.
 
 | Pre-train Model| Label Accuracy| FEVER Score |
 | --------  | -------- | -------- |
-|RoBERTa \(Base\)|0\.7407|0\.7038|
-|BERT \(Large\)|0\.7361|0\.7024|
 |BERT \(Base\)|0\.7281|0\.6940|
+|BERT \(Large\)|0\.7361|0\.7024|
+|RoBERTa \(Large\)|0\.7407|0\.7038|
+|[CorefBERT](https://arxiv.org/abs/2004.06870) \(RoBERT Large\)|0\.7407|0\.7038|
 
 
 
 
 ## Citation
 ```
-@article{liu2019kernel,
-  title={Kernel Graph Attention Network for Fact Verification},
-  author={Liu, Zhenghao and Xiong, Chenyan and Sun, Maosong},
-  journal={arXiv preprint arXiv:1910.09796},
-  year={2019}
+@inproceedings{liu2020kernel,
+  title={Fine-grained Fact Verification with Kernel Graph Attention Network},
+  author={Liu, Zhenghao and Xiong, Chenyan and Sun, Maosong and Liu, Zhiyuan},
+  booktitle={Proceedings of ACL},
+  year={2020}
 }
 ```
 
 ## Contact
 If you have questions, suggestions and bug reports, please email:
 ```
-liuzhenghao0819@gmail.com
+liu-zh16@mails.tsinghua.edu.cn
 ```

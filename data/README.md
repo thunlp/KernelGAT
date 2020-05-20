@@ -6,7 +6,7 @@ Can be found at [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyIL
 
 ## Introduction
 * The fact verification shared task contains three steps: Document Retrieval, Sentence Retrival and Fact Verification.
-* We use the same document retrival with GEAR. Only the sentence retrieval part is different.
+* We use the same document retrieval with GEAR. Only the sentence retrieval part is different.
 
 
 ## Data description
@@ -24,31 +24,57 @@ Can be found at [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyIL
 * ``all_train.json; all_dev.json; all_test.json`` contains all sentences from retrieved document set.
 	* Data format:
 	```
-	{"evidence": [["Colin_Kaepernick", 0, "Colin Rand Kaepernick LRB LSB ` k\u00e6p\u0259rn\u026ak RSB ; born November 3 , 1987 RRB is an American football quarterback who is currently a free agent .", 0]]
+	{"evidence": [
+		["Colin_Kaepernick", 
+		0, "Colin Rand Kaepernick LRB LSB ...", 0]]
 	```
+	For evidence filed,
 	```
-	For evidence filed, [DocumentName(WikiTitle), evidence_id, evidence_content, golden/pseudo flag].
+	 
+	[
+		DocumentName(WikiTitle),
+		evidence_id,
+		evidence_content,
+		golden/pseudo flag
+	]
 	```
-	```
-	Note that for the testing file, no golden label is provided. Hence the golden/pseudo flag is always set to 0.
-	```
+	
+	* Note that for the testing file, no golden label is provided. Hence the golden/pseudo flag is always set to 0. If need one more pieces of evidence for reasoning, the first evidence is annotated as 1 and the others are annotated as 2.
+	
 * Retrieval results for claim verification.
-	* ``bert_train.json; bert_dev.json; bert_test.json`` are the data for claim verification with BERT based retrieval. 
-	* ``esim_train.json; esim_dev.json; esim_test.json`` are the data for claim verification with ESIM based retrieval.
+	* ``bert_train.json; bert_dev.json`` are the data of training and development sets for claim verification training with BERT based retrieval. The golden evidence is also added in these files. 
+	* `` esim_eval.json; esim_test.json`` are the data of development and testing sets for claim verification inference with ESIM based retrieval. The golden evidence is not added. 
+	* `` bert_eval.json; bert_test.json`` are the data of development and testing sets for claim verification inference with BERT based retrieval. The golden evidence is not added. 
 	* Data format:
 	```
-	{"evidence": [["Colin_Kaepernick", 6, "He remained the team `s starting quarterback for the rest of the season and went on to lead the 49ers to their first Super Bowl appearance since 1994 , losing to the Baltimore Ravens .", 0.9736882448196411]]
+	{"evidence": [
+		["Colin_Kaepernick", 
+		6, "He remained ...", 0.9736882448196411]]
 	```
+	For evidence filed, 
 	```
-	For evidence filed, [DocumentName(WikiTitle), evidence_id, evidence_content, retrieval_score]
+	[
+		DocumentName(WikiTitle),
+		evidence_id,
+		evidence_content,
+		retrieval_score
+	]
 	```
 * ``golden_train.json; golden_dev.json`` contain all golden sentences
 	* Data format:
 	```
-	{"evidence": [["Andrew_Kevin_Walker", 0, "Andrew Kevin Walker LRB born August 14 , 1964 RRB is an American BAFTA nominated screenwriter ."]]}
+	{"evidence": [
+		["Andrew_Kevin_Walker", 
+		0, "Andrew Kevin Walker ..."]]}
 	```
+	For evidence filed,
 	```
-	For evidence filed, [DocumentName(WikiTitle), evidence_id, evidence_content]
+	[
+		DocumentName(WikiTitle),
+		evidence_id,
+		evidence_content
+	]
 	```
+* ``eval_dev.json`` is used for evaluation on the development set
 * Process data for pairwise training.
 	* run ``bash process.sh``.

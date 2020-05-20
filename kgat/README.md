@@ -1,5 +1,5 @@
 # Kernel Graph Attention Network (KGAT)
-There are source codes for Our KGAT model.
+There are source codes for our KGAT model.
 
 
 ![model](https://github.com/thunlp/KernelGAT/blob/master/model.png)
@@ -8,28 +8,29 @@ There are source codes for Our KGAT model.
 
 
 ## Introduction
-* The fact verification shared task contains three steps: Document Retrieval, Sentence Retrival and Fact Verification.
+* The fact verification shared task contains three steps: Document Retrieval, Sentence Retrieval and Fact Verification.
 * We come up a joint probability to aggregate evidence and do inference over several pieces of evidence.
 * Kernel is used for Node and Edge attention for better inference.
 
 
 
 ## Train a new inference model
-* You should pre-train BERT model for bette performance.
+* You can pre-train BERT model for better performance. (optional)
 	* Go to the ``pretrain`` folder for more information.
+	* Note that for KGAT (BERT Large & RoBERTa) we did not pretrain the BERT encoders.
 * Train the retrieval model.
 	* Run ``bash train.sh`` to train the KGAT model.
 
 
 ## Test model
-* Run ``bash test.sh`` to get the test set perfomance.
+* Run ``bash test.sh`` to get the test set performance.
 * Go to the ``output`` folder to prepare your submission for Codalab leaderboard.
 * Note that the ``predictions.jsonl`` file is the result we submit.
 
 
 ## Verification Perfomance
 
-We compare our model performance with GEAR and keep all same experiment setting. The same ESIM based sentence retrieval and BERT (Base) encoder. 
+We compare our model performance with GEAR and keep all same experiment setting. The same ESIM based sentence retrieval and BERT (Base) encoder. (The ESIM based files can also be found in the data folder.)
 
 * Development set.
 
