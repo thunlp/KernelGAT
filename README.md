@@ -50,7 +50,7 @@ KGAT performance with different pre-trained language model.
 |BERT \(Base\)|0\.7281|0\.6940|
 |BERT \(Large\)|0\.7361|0\.7024|
 |RoBERTa \(Large\)|0\.7407|0\.7038|
-|[CorefBERT](https://arxiv.org/abs/2004.06870) \(RoBERT Large\)|0\.7407|0\.7038|
+|[CorefBERT](https://arxiv.org/abs/2004.06870) \(RoBERT Large\)|0\.7596|0\.7230|
 
 
 
