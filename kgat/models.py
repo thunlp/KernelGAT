@@ -2,8 +2,6 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn import BatchNorm1d, Linear, ReLU
-from bert_model import BertForSequenceEncoder
 
 from torch.nn import BatchNorm1d, Linear, ReLU
 from bert_model import BertForSequenceEncoder
@@ -119,7 +117,7 @@ class inference_model(nn.Module):
         log_pooling_sum = torch.sum(pooling_value, 2)
         log_pooling_sum = torch.log(torch.clamp(log_pooling_sum, min=1e-10))
         log_pooling_sum = self.proj_att(log_pooling_sum).squeeze(-1)
-        log_pooling_sum = log_pooling_sum.masked_fill_(1 - attn_q.byte(), -1e4)
+        log_pooling_sum = log_pooling_sum.masked_fill_((1 - attn_q).bool(), -1e4)
         log_pooling_sum = F.softmax(log_pooling_sum, dim=1)
         return log_pooling_sum
 
