@@ -11,11 +11,12 @@ For more information about the FEVER 1.0 shared task can be found on this [websi
 * fever_score
 * Pytorch
 * pytorch_pretrained_bert
+* transformers
 
 
 ## Data and Checkpoint
-* Can be found at [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyILFbON6IUB-iU3nsNLp).
-
+* All data and BERT based chechpoints can be found at [Ali Drive](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/FEVER/KernelGAT.zip).
+* RoBERTa based models and chechpoints can be found at [Ali Drive](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/FEVER/KernelGAT_roberta_large.zip).
 
 ## Retrieval Model
 * BERT based ranker.
