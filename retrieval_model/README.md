@@ -21,7 +21,7 @@ The sentence retrieval codes.
 * Run ``bash test.sh`` to get the data for claim verification and top5 evidence will be reserved.
 * The ``process_data.py`` aims to include the golden data for claim verification to avoid the data bias.
 * Note that if no golden evidence is provided the prediction should be NOT ENOUGH INFO (Different from the golden label). To avoid this scenario, we add golden evidence for training and development sets to avoid the label bias. The details of all retrieved data can be found at the ``data`` folder.
-* The intermediate results of model inference can be found at ``outputs/retrieval_model`` of [Google Drive](https://drive.google.com/open?id=1cv9dfYN_dF8GyILFbON6IUB-iU3nsNLp). 
+* The intermediate results of model inference can be found at ``outputs/retrieval_model`` of [Ali Drive](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/FEVER/KernelGAT.zip). 
 
 
 ## Retrieval Performance
