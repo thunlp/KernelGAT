@@ -72,8 +72,8 @@ def train_model(model, ori_model, args, trainset_reader, validset_reader):
             prob = model(inputs)
             loss = F.nll_loss(prob, lab_tensor)
             running_loss += loss.item()
-            #if args.gradient_accumulation_steps > 1:
-            #    loss = loss / args.gradient_accumulation_steps
+            if args.gradient_accumulation_steps > 1:
+                loss = loss / args.gradient_accumulation_steps
             loss.backward()
             global_step += 1
             if global_step % args.gradient_accumulation_steps == 0:
