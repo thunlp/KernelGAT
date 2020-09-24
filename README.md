@@ -1,5 +1,5 @@
 # Kernel Graph Attention Network (KGAT)
-There are source codes for [Fine-grained Fact Verification with Kernel Graph Attention Network](https://arxiv.org/abs/1910.09796).
+There are source codes for [Fine-grained Fact Verification with Kernel Graph Attention Network](https://www.aclweb.org/anthology/2020.acl-main.655.pdf).
 
 ![model](https://github.com/thunlp/KernelGAT/blob/master/model.png)
 
