@@ -7,11 +7,11 @@ More information about the SCIFACT shared task can be found on this [website](ht
 In this part, we mainly focus on continuously training language models for the scientific domain. For more advanced retrieval technics for COVID search, please refer to our [paper](https://arxiv.org/abs/2011.01580) and [OpenMatch](https://github.com/thunlp/OpenMatch) toolkit to achieve top retrieval for COVID search.
 
 
-## Requirement
+## Requirements
 * requirments.txt
 
 
-## Use our code
+## Use Our Codes
 * We provide annotations and some scripts for users in the ``script`` data folder.
 * Inference with our best pipeline, and you can get the evaluation results:
 ```
@@ -32,13 +32,13 @@ bash script/train_kgat.sh
 ## Continuous Training
 * The continuous training is presented. We provide two methods, Mask Language Model (MLM) and Rationale Prediction (PR). For MLM, please go to ``mlm_models`` for more information. The other one is the same with rationale selection training. We can warm up from these models.
 
-## Our results
+## Our Results
 * All our experimental results are provided in the ``prediction`` folder.
 * We provide scripts for training, inference, and eval in the ``script`` folder.
 
 
 
-## Results
+## Evaluation for SCIKGAT
 Overall performance on the development set:
 
 
