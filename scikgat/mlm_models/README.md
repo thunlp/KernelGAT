@@ -21,7 +21,7 @@ We also provide these checkpoints:
 
 * MLM training with SciBERT (base), [scibert_mlm](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/SCIFACT/scibert_mlm.zip).
 * MLM training with RoBERTa (base), [roberta_base_mlm](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/SCIFACT/roberta_base_mlm.zip).
-* MLM training with RoBERTa (large),[roberta_large_mlm](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/SCIFACT/roberta_large_mlm.zip).
+* MLM training with RoBERTa (large), [roberta_large_mlm](https://thunlp.oss-cn-qingdao.aliyuncs.com/KernelGAT/SCIFACT/roberta_large_mlm.zip).
 
 and MLM based training data:
 
