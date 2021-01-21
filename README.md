@@ -6,7 +6,7 @@ There are source codes for [Fine-grained Fact Verification with Kernel Graph Att
 For more information about the FEVER 1.0 shared task can be found on this [website](http://fever.ai).
 
 ## 😃 What's New
-**[Fact Extraction and Verification with SCIFACT](https://scifact.apps.allenai.org)
+[Fact Extraction and Verification with SCIFACT](https://scifact.apps.allenai.org)
 
 The shared task introduces scientific claim verification for helping scientists, clinicians, and public to verify the credibility of such claims with scientific literature, especially for the claims related to COVID-19. \
   [>> Reproduce Our Results](./scikgat) [>> About SCIFACT Dataset](https://www.aclweb.org/anthology/2020.emnlp-main.609.pdf) [>> Our Paper](https://www.aclweb.org/anthology/2020.findings-emnlp.216)
