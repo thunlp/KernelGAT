@@ -64,8 +64,8 @@ Overall performance on the testing set:
 
 We also conduct some ablation studies about abstract retrieval and rationale selection for further work (These parts are omitted in our paper because of the limited space). We find that the abstract retrieval can be improved with a single SciBERT (MLM), and here are the results. In this experiment, we use SciBERT (MLM) to rerank the top 100 TF-IDF retrieved abstract and then leverage the following steps of our baseline (RoBERTa large) to do rational and claim label prediction.
 
-| Model            | Ranking Acc. |         | Abstract Level  |         |       | Sentence Level |          |       |   |
-|------------------|--------------|---------|-----------|----------------|-------|-----------|----------------|-------|---|
+| Model            | Ranking Acc. |         | Abstract Level  |         |       | Sentence Level |          |       |
+|------------------|--------------|---------|-----------|----------------|-------|-----------|----------------|-------|
 |                  | Hit one      | Hit all | Precision | Recall         | F1    | Precision | Recall         | F1    |
 | TF-IDF           | 84.67        | 83.33   | 53.30     | 46.41          | 49.62 | 46.51     | 38.25          | 41.98 |
 | w. SciBERT       | 94.67        | 93.00   | 48.18     | 56.94          | 52.19 | 42.09     | 47.27          | 44.53 |
