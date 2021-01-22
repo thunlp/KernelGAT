@@ -62,7 +62,7 @@ Overall performance on the testing set:
 | SciKGAT (w, AR) | 41.67          | 45.95 | 43.7  | 47.47          | 54.96 | 50.94 |
 | SciKGAT (Full)  | 61.15          | 42.97 | 50.48 | 76.09          | 47.3  | 58.3  |
 
-We also conduct some ablation studies about abstract retrieval and rationale selection for further work (These parts are omitted in our paper because of the limited space). We find that the abstract retrieval can be improved with a single SciBERT (MLM), and here are the results. In this experiment, we use SciBERT (MLM) to rerank the top 100 TF-IDF retrieved abstract and then leverage the following steps of our baseline (RoBERTa large) to do rational and claim label prediction.
+We also conduct some ablation studies about abstract retrieval and rationale selection for further work (These parts are omitted in our paper because of the limited space). We find that the abstract retrieval can be improved with a single SciBERT (MLM), and here are the results. In this experiment, we use SciBERT (MLM) to rerank the top 100 TF-IDF retrieved abstract and then leverage the following steps of our baseline (RoBERTa large) to do rationale selection and claim label prediction.
 
 | Model            | Ranking Acc. |         | Abstract Level  |         |       | Sentence Level |          |       |
 |------------------|--------------|---------|-----------|----------------|-------|-----------|----------------|-------|
@@ -71,7 +71,7 @@ We also conduct some ablation studies about abstract retrieval and rationale sel
 | w. SciBERT       | 94.67        | 93.00   | 48.18     | 56.94          | 52.19 | 42.09     | 47.27          | 44.53 |
 | w. SciBERT (MLM) | 95.33        | 93.67   | 47.66     | 58.37          | 52.47 | 42.07     | 47.81          | 44.76 |
 
-Also, we have ablation studies of rational prediction:
+Also, we have ablation studies of rationale selection:
 
 | Model               | Ranking Acc. |        |       | Sentence Level |        |       | Abstract Level |        |       |
 |---------------------|--------------|--------|-------|----------------|--------|-------|----------------|--------|-------|
