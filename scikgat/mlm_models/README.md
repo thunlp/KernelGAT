@@ -2,7 +2,7 @@
 
 
 ## Data and Checkpoints
-* The continuously training is presented. We provide two methods, Mask Language Model (MLM) and Rationale Prediction (PR). For MLM, we continuously train language models with Mask Language Model with [COVID-19](https://www.semanticscholar.org/cord19), following the hugginface's [instraction](https://github.com/huggingface/transformers/tree/master/examples/language-modeling). 
+* The continuously training is presented. We provide two methods, Mask Language Model (MLM) and Rationale Prediction (PR). For MLM, we continuously train language models with Mask Language Model with [COVID-19](https://www.semanticscholar.org/cord19), following the hugginface's [instruction](https://github.com/huggingface/transformers/tree/master/examples/language-modeling). 
 
 ```
 python run_mlm.py \
