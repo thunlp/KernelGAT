@@ -82,5 +82,5 @@ KGAT performance with different pre-trained language model.
 ## Contact
 If you have questions, suggestions and bug reports, please email:
 ```
-liu-zh16@mails.tsinghua.edu.cn
+liuzhenghao0819@gmail.com
 ```
